@@ -58,15 +58,15 @@ def totals():
 
 def singles_results():
     while True:
-        winner = str(input("Which player won? Input b to return to main menu"
+        winner = str(input("Which player won? Input 'b' to return to main menu"
             "\n>"))
         if winner == "b":
             break
-        loser = str(input("Which player lost Input b to return to main menu?"
+        loser = str(input("Which player lost Input 'b' to return to main menu?"
             "\n>"))
         if loser == "b":
             break
-        if not any(winner.capitalize() in sublist for sublist in players) or not any (loser.capitalize() in sublist for sublist in players):
+        if winner.capitalize() not in players.keys() or loser.capitalize() not in players.keys():
             print("One of the players you gave has not been added to the "
                 "list. Please try again, or input 'b' to return to the "
                 "main menu to add more players.")
@@ -76,6 +76,14 @@ def singles_results():
             players[winner.capitalize()] += amount
             players[loser.capitalize()] -= amount
             break
+def doubles_results():
+    winner1 = input("Which team won (list one player at a time)?\n>")
+    if winner1 not in players.keys():
+        pass
+    winner2 = input("Which team won (list one player at a time)?\n>")
+    loser1 = input("Which team lost (list one player at a time)?\n>")
+    loser2 = input("Which team lost (list one player at a time)?\n>")
+
     menu()
 
 
