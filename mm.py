@@ -129,8 +129,8 @@ def doubles_results():
 
 def ask_for_rematch(winner, loser):
     while True:    
-            answer = input("Rematch? Input 'yes', 'no' or 't' to first view current "
-                        "money counts\n>")
+            answer = input("Rematch? Input 'yes', 'no' or 't' to first view " 
+                "current money counts\n>")
             if answer == 'yes':
                 rematch(winner, loser)
                 break
@@ -145,8 +145,8 @@ def ask_for_rematch(winner, loser):
 def rematch(winner, loser):
     if type(winner) == str:
         while True:
-            re_winner = input(f"Which player won? Input '1' for {winner}, '2' for"
-                        f" {loser}, or 'b' to cancel rematch\n>")
+            re_winner = input(f"Which player won? Input '1' for {winner}, '2'"
+             f" for {loser}, or 'b' to cancel rematch\n>")
             if re_winner == 'b':
                 menu()
             if re_winner != '1' and re_winner != '2':
@@ -161,6 +161,21 @@ def rematch(winner, loser):
             players[loser] += amount
             players[winner] -= amount
         ask_for_rematch(winner, loser)
+    if type(winner) == list:
+        while True:
+            re_winner = input("Which team won? Input one of the following:\n" 
+            f"'1' for {winner[0]} and {winner[1]}\n '2' for {loser[0]}, and {loser[1]}\n"
+            "'b' to cancel rematch\n>")
+            if re_winner == 'b':
+                menu()
+            if re_winner != '1' and re_winner != '2':
+                print("Invalid input. Please try again")
+            else: 
+                break
+    
+
+
+
     
 
         
