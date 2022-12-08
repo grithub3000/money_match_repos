@@ -112,19 +112,10 @@ def doubles_results():
         players[name] += amount
     for name in losing_team:
         players[name] -= amount
-    
-    
-
-
-
 
 def main():
-
     add_player()
     menu()
-
-    
-
 main()
 
 
