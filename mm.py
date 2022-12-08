@@ -1,23 +1,27 @@
 players = {}
-
+player_list = []
 
 def add_player():
     while True:
         count = len(players)
         print("\n")
         addition = str(input("Input each player's name. When finished, input"
-                    " 'DONE':\n>"))
-        if addition == "DONE":
+                    " 'done':\n>")).capitalize()
+        if addition == "Done":
             break
         elif len(addition) < 3:
             print("Name not added. Each player name must be at least 3 characters.")
-        elif addition.capitalize() in players:
+        elif addition in players:
             print("Player not added. This name is already being used.")
         else:
-            players.update({addition.capitalize(): 0})
+            players.update({addition: 0})
+            player_list.append(addition)
     print(f"Player List: ", end="")
-    for player in players.keys():
-        print(f"{player}, ", end="")
+    for player in player_list:
+        if player != player_list[-1]:
+            print(f"{player}, ", end="")
+        else:
+            print(player)
 
 def menu():
     while True:
@@ -54,10 +58,10 @@ def totals():
 def singles_results():
     while True:
         winner = str(input("Which player won? Input 'b' to return to main menu"
-            "\n>"))
+            "\n>")).capitalize()
         if winner == "b":
             menu()
-        elif winner.capitalize() not in players:
+        elif winner not in players:
             print("This player has not been added to the players list. "
                     "Please try again, or exit to the menu to add more "
                     "players.")
@@ -65,10 +69,10 @@ def singles_results():
             break
     while True:
         loser = str(input("Which player lost Input 'b' to return to main menu"
-            "\n>"))
+            "\n>")).capitalize()
         if loser == "b":
             menu()
-        elif loser.capitalize() not in players:
+        elif loser not in players:
             print("This player has not been added to the players list. "
                     "Please try again, or exit to the menu to add more "
                     "players.")
@@ -76,8 +80,8 @@ def singles_results():
             break
     amount = int(input("How much money was this money match for?"
             "\n>$"))
-    players[winner.capitalize()] += amount
-    players[loser.capitalize()] -= amount
+    players[winner] += amount
+    players[loser] -= amount
     ask_for_rematch(winner, loser)
         
 
@@ -88,33 +92,33 @@ def doubles_results():
         while True:
             if i == 0:
                 winner = input("Which team won (list one player at a time)? Input"
-                    "'b' to return to the menu\n>")
+                    "'b' to return to the menu\n>").capitalize()
             if i == 1:
-                winner = input(">")
+                winner = input(">").capitalize()
             if winner == 'b':
                 menu()
-            elif winner.capitalize() not in players:
+            elif winner not in players:
                 print("This player has not been added to the players list. "
                     "Please try again, or exit to the menu to add more "
                     "players.")
             else:
-                winning_team.append(winner.capitalize())
+                winning_team.append(winner)
                 break
     for i in range(2):
         while True:
             if i == 0:
                 loser = input("Which team lost (list one player at a time)? Input"
-                    "'b' to return to the menu\n>")
+                    "'b' to return to the menu\n>").capitalize()
             if i == 1:
-                loser = input(">")
+                loser = input(">").capitalize()
             if loser == 'b':
                 menu()
-            elif loser.capitalize() not in players:
+            elif loser not in players:
                 print("This player has not been added to the players list. "
                     "Please try again, or exit to the menu to add more "
                     "players.")
             else:
-                losing_team.append(loser.capitalize())
+                losing_team.append(loser)
                 break
     amount = int(input("How much money was this money match for?\n>$"))
     for name in winning_team:
@@ -126,7 +130,7 @@ def doubles_results():
 def ask_for_rematch(winner, loser):
     while True:    
             answer = input("Rematch? Input 'yes', 'no' or 't' to first view current "
-                        "money counts")
+                        "money counts\n>")
             if answer == 'yes':
                 rematch(winner, loser)
                 break
@@ -142,20 +146,20 @@ def rematch(winner, loser):
     if type(winner) == str:
         while True:
             re_winner = input(f"Which player won? Input '1' for {winner}, '2' for"
-                        " {loser}, or 'b' to return to the menu")
+                        f" {loser}, or 'b' to cancel rematch\n>")
             if re_winner == 'b':
                 menu()
             if re_winner != '1' and re_winner != '2':
                 print("Invalid input. Please try again")
             else: 
                 break
-        amount = input("How much money was this money match for?\n>$")
+        amount = int(input("How much money was this money match for?\n>$"))
         if re_winner == '1':
             players[winner] += amount
             players[loser] -= amount
         elif re_winner == '2':
             players[loser] += amount
-            players[winner] += amount
+            players[winner] -= amount
         ask_for_rematch(winner, loser)
     
 
