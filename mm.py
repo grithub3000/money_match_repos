@@ -57,20 +57,28 @@ def singles_results():
             "\n>"))
         if winner == "b":
             menu()
+        elif winner.capitalize() not in players:
+            print("This player has not been added to the players list. "
+                    "Please try again, or exit to the menu to add more "
+                    "players.")
+        else:
+            break
+    while True:
         loser = str(input("Which player lost Input 'b' to return to main menu"
             "\n>"))
         if loser == "b":
             menu()
-        if winner.capitalize() not in players.keys() or loser.capitalize() not in players.keys():
-            print("One of the players you gave has not been added to the "
-                "list. Please try again, or input 'b' to return to the "
-                "main menu to add more players.")
+        elif loser.capitalize() not in players:
+            print("This player has not been added to the players list. "
+                    "Please try again, or exit to the menu to add more "
+                    "players.")
         else:
-            amount = int(input("How much money was this money match for?"
-                "\n>$"))
-            players[winner.capitalize()] += amount
-            players[loser.capitalize()] -= amount
             break
+    amount = int(input("How much money was this money match for?"
+            "\n>$"))
+    players[winner.capitalize()] += amount
+    players[loser.capitalize()] -= amount
+        
 
 def doubles_results():
     winning_team = []
