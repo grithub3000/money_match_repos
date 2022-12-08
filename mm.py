@@ -35,7 +35,7 @@ def menu():
                                 "or doubles)."
                                 "\n'add' to add more players."
                                 "\n'totals' to display the money counts."
-                                "\n'QUIT' to exit the program.\n>"))
+                                "\nPress ctrl 'z' to exit the program.\n>"))
         if action == "s":
             singles_results()
         elif action == "d":
@@ -44,11 +44,6 @@ def menu():
             add_player()
         elif action == "totals": 
             totals()
-        elif action == "QUIT":
-            final = str(input("Are you sure? All data will be lost." 
-                    "Input YES/NO:\n>"))
-            if final == "YES": 
-                break
         else:
             print("Invalid Input")
 
@@ -61,11 +56,11 @@ def singles_results():
         winner = str(input("Which player won? Input 'b' to return to main menu"
             "\n>"))
         if winner == "b":
-            break
-        loser = str(input("Which player lost Input 'b' to return to main menu?"
+            menu()
+        loser = str(input("Which player lost Input 'b' to return to main menu"
             "\n>"))
         if loser == "b":
-            break
+            menu()
         if winner.capitalize() not in players.keys() or loser.capitalize() not in players.keys():
             print("One of the players you gave has not been added to the "
                 "list. Please try again, or input 'b' to return to the "
@@ -76,15 +71,50 @@ def singles_results():
             players[winner.capitalize()] += amount
             players[loser.capitalize()] -= amount
             break
-def doubles_results():
-    winner1 = input("Which team won (list one player at a time)?\n>")
-    if winner1 not in players.keys():
-        pass
-    winner2 = input("Which team won (list one player at a time)?\n>")
-    loser1 = input("Which team lost (list one player at a time)?\n>")
-    loser2 = input("Which team lost (list one player at a time)?\n>")
 
-    menu()
+def doubles_results():
+    winning_team = []
+    losing_team = []
+    for i in range(2):
+        while True:
+            if i == 0:
+                winner = input("Which team won (list one player at a time)? Input"
+                    "'b' to return to the menu\n>")
+            if i == 1:
+                winner = input(">")
+            if winner == 'b':
+                menu()
+            elif winner.capitalize() not in players:
+                print("This player has not been added to the players list. "
+                    "Please try again, or exit to the menu to add more "
+                    "players.")
+            else:
+                winning_team.append(winner.capitalize())
+                break
+    for i in range(2):
+        while True:
+            if i == 0:
+                loser = input("Which team lost (list one player at a time)? Input"
+                    "'b' to return to the menu\n>")
+            if i == 1:
+                loser = input(">")
+            if loser == 'b':
+                menu()
+            elif loser.capitalize() not in players:
+                print("This player has not been added to the players list. "
+                    "Please try again, or exit to the menu to add more "
+                    "players.")
+            else:
+                losing_team.append(loser.capitalize())
+                break
+    amount = int(input("How much money was this money match for?\n>$"))
+    for name in winning_team:
+        players[name] += amount
+    for name in losing_team:
+        players[name] -= amount
+    
+    
+
 
 
 
