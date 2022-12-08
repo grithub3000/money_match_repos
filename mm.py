@@ -78,6 +78,7 @@ def singles_results():
             "\n>$"))
     players[winner.capitalize()] += amount
     players[loser.capitalize()] -= amount
+    ask_for_rematch(winner, loser)
         
 
 def doubles_results():
@@ -120,6 +121,50 @@ def doubles_results():
         players[name] += amount
     for name in losing_team:
         players[name] -= amount
+    ask_for_rematch(winning_team, losing_team)
+
+def ask_for_rematch(winner, loser):
+    while True:    
+            answer = input("Rematch? Input 'yes', 'no' or 't' to first view current "
+                        "money counts")
+            if answer == 'yes':
+                rematch(winner, loser)
+                break
+            elif answer == 'no':
+                menu()
+                break
+            elif answer == 't':
+                totals()
+            else:
+                print("Invalid input. Please try again.")
+
+def rematch(winner, loser):
+    if type(winner) == str:
+        while True:
+            re_winner = input(f"Which player won? Input '1' for {winner}, '2' for"
+                        " {loser}, or 'b' to return to the menu")
+            if re_winner == 'b':
+                menu()
+            if re_winner != '1' and re_winner != '2':
+                print("Invalid input. Please try again")
+            else: 
+                break
+        amount = input("How much money was this money match for?\n>$")
+        if re_winner == '1':
+            players[winner] += amount
+            players[loser] -= amount
+        elif re_winner == '2':
+            players[loser] += amount
+            players[winner] += amount
+        ask_for_rematch(winner, loser)
+    
+
+        
+            
+            
+
+
+
 
 def main():
     add_player()
