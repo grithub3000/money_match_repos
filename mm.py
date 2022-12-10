@@ -59,7 +59,7 @@ def singles_results():
     while True:
         winner = str(input("Which player won? Input 'b' to return to main menu"
             "\n>")).capitalize()
-        if winner == "b":
+        if winner.lower() == "b":
             menu()
         elif winner not in players:
             print("This player has not been added to the players list. "
@@ -70,7 +70,7 @@ def singles_results():
     while True:
         loser = str(input("Which player lost Input 'b' to return to main menu"
             "\n>")).capitalize()
-        if loser == "b":
+        if loser.lower() == "b":
             menu()
         elif loser not in players:
             print("This player has not been added to the players list. "
@@ -95,7 +95,7 @@ def doubles_results():
                     "'b' to return to the menu\n>").capitalize()
             if i == 1:
                 winner = input(">").capitalize()
-            if winner == 'b':
+            if winner.lower() == 'b':
                 menu()
             elif winner not in players:
                 print("This player has not been added to the players list. "
@@ -111,7 +111,7 @@ def doubles_results():
                     "'b' to return to the menu\n>").capitalize()
             if i == 1:
                 loser = input(">").capitalize()
-            if loser == 'b':
+            if loser.lower() == 'b':
                 menu()
             elif loser not in players:
                 print("This player has not been added to the players list. "
@@ -164,7 +164,7 @@ def rematch(winner, loser):
     if type(winner) == list:
         while True:
             re_winner = input("Which team won? Input one of the following:\n" 
-            f"'1' for {winner[0]} and {winner[1]}\n '2' for {loser[0]}, and {loser[1]}\n"
+            f"'1' for {winner[0]} and {winner[1]}\n'2' for {loser[0]} and {loser[1]}\n"
             "'b' to cancel rematch\n>")
             if re_winner == 'b':
                 menu()
@@ -172,6 +172,18 @@ def rematch(winner, loser):
                 print("Invalid input. Please try again")
             else: 
                 break
+        amount = int(input("How much money was this money match for?\n>$"))
+        for player in winner:
+            if re_winner == '1':
+                players[player] += amount
+            else:
+                players[player] -= amount
+        for player in loser:
+            if re_winner == '1':
+                players[player] -= amount
+            else:
+                players[player] += amount 
+        ask_for_rematch(winner, loser)
     
 
 
