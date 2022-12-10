@@ -55,6 +55,20 @@ def totals():
     for player in players:
         print(f"{player}: ${players[player]}")
 
+def ask_amount():
+    while True:
+        try:
+            money = int(input("How much was this money match for?\n>$"))
+            if money < 0:
+                print("Please try again. This input must be a positive integer"
+                    ".")
+            else:
+                break
+        except ValueError:
+            print("Please try again. This input must be a positive integer.")
+    return money
+
+
 def singles_results():
     while True:
         winner = str(input("Which player won? Input 'b' to return to main menu"
@@ -78,8 +92,7 @@ def singles_results():
                     "players.")
         else:
             break
-    amount = int(input("How much money was this money match for?"
-            "\n>$"))
+    amount = ask_amount()
     players[winner] += amount
     players[loser] -= amount
     ask_for_rematch(winner, loser)
@@ -120,7 +133,7 @@ def doubles_results():
             else:
                 losing_team.append(loser)
                 break
-    amount = int(input("How much money was this money match for?\n>$"))
+    amount = ask_amount()
     for name in winning_team:
         players[name] += amount
     for name in losing_team:
@@ -153,7 +166,7 @@ def rematch(winner, loser):
                 print("Invalid input. Please try again")
             else: 
                 break
-        amount = int(input("How much money was this money match for?\n>$"))
+        amount = ask_amount()
         if re_winner == '1':
             players[winner] += amount
             players[loser] -= amount
@@ -172,7 +185,7 @@ def rematch(winner, loser):
                 print("Invalid input. Please try again")
             else: 
                 break
-        amount = int(input("How much money was this money match for?\n>$"))
+        amount = ask_amount()
         for player in winner:
             if re_winner == '1':
                 players[player] += amount
@@ -201,6 +214,3 @@ def main():
     add_player()
     menu()
 main()
-
-
-
