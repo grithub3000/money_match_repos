@@ -197,18 +197,6 @@ def rematch(winner, loser):
             else:
                 players[player] += amount 
         ask_for_rematch(winner, loser)
-    
-
-
-
-    
-
-        
-            
-            
-
-
-
 
 def main():
     add_player()
